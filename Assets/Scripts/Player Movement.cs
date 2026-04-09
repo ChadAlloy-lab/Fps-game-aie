@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float rotateCameraPitch;
 
-    private CameraMovement firstPersonCam;
+    private Camera firstPersonCam;
     private CharacterController characterController;
 
     public float SpeedPowerTimerAmount = 60;
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
-        firstPersonCam = GetComponentInChildren<CameraMovement>();
+        firstPersonCam = GetComponentInChildren<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
 
     }
