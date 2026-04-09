@@ -72,11 +72,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (characterController.isGrounded)
         {
-            verticalVelocity = -2f;
-        }
-        if (jumpInput)
-        {
-            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
+            if (verticalVelocity < 0.0f)
+            {
+                verticalVelocity = -2f;
+            }
+
+
+            if (jumpInput)
+            {
+                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
+            }
         }
         else
         {
