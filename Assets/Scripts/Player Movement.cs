@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     public float mouseSensitivity = 2.0f;
     public float pitchRange = 60.0f;
 
+    public float normalFOV = 60f;
+    public float zoomFOV = 30f;
+    public float zoomSpeed = 5f;
 
 
     private float forwardInputValue;
@@ -45,6 +48,14 @@ public class PlayerMovement : MonoBehaviour
         JumpAndGravity();
         CameraMovement();
 
+        if (Input.GetMouseButton(1))
+        {
+            firstPersonCam.fieldOfView = Mathf.Lerp(firstPersonCam.fieldOfView, zoomFOV, zoomSpeed * Time.deltaTime);
+        }
+        else
+        {
+            firstPersonCam.fieldOfView = Mathf.Lerp(firstPersonCam.fieldOfView, normalFOV, zoomSpeed * Time.deltaTime);
+        }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {

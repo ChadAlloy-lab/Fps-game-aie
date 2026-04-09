@@ -1811,6 +1811,9 @@ MonoBehaviour:
   fallGravityMultiplier: 2
   mouseSensitivity: 2
   pitchRange: 60
+  normalFOV: 60
+  zoomFOV: 30
+  zoomSpeed: 5
 --- !u!143 &1078638767
 CharacterController:
   m_ObjectHideFlags: 0
