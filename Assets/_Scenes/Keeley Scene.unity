@@ -1401,6 +1401,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728980961}
   m_CullTransparentMesh: 1
+--- !u!1 &760424167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 760424168}
+  m_Layer: 0
+  m_Name: Player Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &760424168
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760424167}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.451, y: 1.7781967, z: -3.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &919719213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1814,6 +1845,7 @@ MonoBehaviour:
   normalFOV: 60
   zoomFOV: 30
   zoomSpeed: 5
+  playerSpawnPoint: {fileID: 760424168}
 --- !u!143 &1078638767
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2640,7 +2672,7 @@ MonoBehaviour:
   worldCamera: {fileID: 1017134288}
   startTimerAmount: 3
   targetActivateTimerAmount: 1
-  gameTimerAmount: 60
+  gameTimerAmount: 5
   gameState: 1
 --- !u!4 &1904812799
 Transform:
@@ -3435,3 +3467,4 @@ SceneRoots:
   - {fileID: 1913752463}
   - {fileID: 1214456522}
   - {fileID: 207660826}
+  - {fileID: 760424168}

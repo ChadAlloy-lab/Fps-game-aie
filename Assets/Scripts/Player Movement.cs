@@ -31,12 +31,25 @@ public class PlayerMovement : MonoBehaviour
     private Camera firstPersonCam;
     private CharacterController characterController;
 
+    public Transform playerSpawnPoint;
+
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
         firstPersonCam = GetComponentInChildren<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
 
+    }
+
+
+    void OnEnable()
+    {
+        characterController.enabled = false;
+        transform.position = playerSpawnPoint.position;
+        transform.rotation = playerSpawnPoint.rotation;
+
+        rotateCameraPitch = 0f;
+        characterController.enabled = true;
     }
 
     void Update()
