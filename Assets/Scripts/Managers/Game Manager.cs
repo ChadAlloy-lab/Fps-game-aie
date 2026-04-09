@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
         if (gameTimer <= 0)
         {
             Cursor.lockState= CursorLockMode.Confined;
-            Debug.Log("Game Over. Score: " + score);
+            messageText.text = ("Game Over. Score: " + score);
             gameState = GameState.GameOver;
             player.SetActive(false);
             worldCamera.gameObject.SetActive(true);
@@ -172,6 +172,7 @@ public class GameManager : MonoBehaviour
             }
             highScores.AddScore(score);
             highScores.SaveScoresToFile();
+            timerText.text = "";
             newGameButton.gameObject.SetActive(true);
             highScoreButton.gameObject.SetActive(true);
         }
