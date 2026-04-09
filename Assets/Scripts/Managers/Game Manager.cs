@@ -95,14 +95,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.tag == "Coin Pickup")
-            {
-                Debug.Log("Player detected coin");
-            }
-
-        }
+        
     }
 
     private void ActivateRandomTarget()
