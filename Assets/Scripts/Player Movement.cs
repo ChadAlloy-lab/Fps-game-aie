@@ -25,20 +25,13 @@ public class PlayerMovement : MonoBehaviour
 
     private float rotateCameraPitch;
 
-    private CameraMovement firstPersonCam;
+    private Camera firstPersonCam;
     private CharacterController characterController;
-
-    public float SpeedPowerTimerAmount = 60;
-    private float SpeedPowerTimer;
-
-    private GameManager gameManager;
-
-    public GameManager GameManager { get { return gameManager; } set { gameManager = value; } }
 
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
-        firstPersonCam = GetComponentInChildren<CameraMovement>();
+        firstPersonCam = GetComponentInChildren<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
 
     }
@@ -111,19 +104,6 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-
-    void PowerUpPickups()
-    {
-        void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.tag == "Coin Pickup")
-            {
-                Debug.Log("Player detected coin");
-                Debug.Log("");
-                gameManager.AddScore(1);
-            }
-
-        }
-    }
+        
 
 }
