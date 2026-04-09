@@ -2672,7 +2672,7 @@ MonoBehaviour:
   worldCamera: {fileID: 1017134288}
   startTimerAmount: 3
   targetActivateTimerAmount: 1
-  gameTimerAmount: 5
+  gameTimerAmount: 60
   gameState: 1
 --- !u!4 &1904812799
 Transform:
