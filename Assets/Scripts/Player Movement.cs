@@ -25,13 +25,13 @@ public class PlayerMovement : MonoBehaviour
 
     private float rotateCameraPitch;
 
-    private CameraMovement firstPersonCam;
+    private Camera firstPersonCam;
     private CharacterController characterController;
 
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
-        firstPersonCam = GetComponentInChildren<CameraMovement>();
+        firstPersonCam = GetComponentInChildren<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
 
     }

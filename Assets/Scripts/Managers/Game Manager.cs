@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     public TargetHealth[] targets;
     public GameObject player;
-    public CameraMovement worldCamera;
+    public Camera worldCamera;
 
     public float startTimerAmount = 3;
     private float startTimer;
