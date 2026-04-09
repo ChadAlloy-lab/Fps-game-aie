@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     public TargetHealth[] targets;
     public GameObject player;
-    public Camera worldCamera;
+    public CameraMovement worldCamera;
 
     public float startTimerAmount = 3;
     private float startTimer;
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
 
         player.SetActive(false);
-        worldCamera.gameObject.SetActive(false);
+        worldCamera.gameObject.SetActive(true);
         for (int i = 0; i < targets.Length; i++)
         {
             targets[i].GameManager = this;
@@ -94,15 +94,6 @@ public class GameManager : MonoBehaviour
                 GameStateGameOver();
                 break;
         }
-
-        void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.tag == "Coin Pickup")
-            {
-                Debug.Log("Player detected coin");
-            }
-
-        }
     }
 
     private void ActivateRandomTarget()
@@ -114,11 +105,15 @@ public class GameManager : MonoBehaviour
     public void AddScore(int points)
     {
         score += points;
+        scoreText.text = "Score: " + score;
     }
 
     public void OnNewGame()
     {
         gameState = GameState.Start;
+        highScorePanel.gameObject.SetActive(false);
+        newGameButton.gameObject.SetActive(false);
+        highScoreButton.gameObject.SetActive(false);
     }
 
     public void OnHighScores()
@@ -138,9 +133,13 @@ public class GameManager : MonoBehaviour
     private void GameStateStart()
     {
         startTimer -= Time.deltaTime;
+        messageText.text = "Get Ready " + (int)(startTimer + 1);
+
         if (startTimer < 0)
         {
             Cursor.lockState = CursorLockMode.Locked;
+            messageText.text = "";
+
             gameState = GameState.Playing;
             gameTimer = gameTimerAmount;
             startTimer = startTimerAmount;
@@ -190,6 +189,11 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.Return))
         {
             gameState = GameState.Start;
+            timerText.text = "";
+            scoreText.text = "";
+            highScorePanel.gameObject.SetActive(false);
+            newGameButton.gameObject.SetActive(false);
+            highScoreButton.gameObject.SetActive(false);
         }
     }
 }

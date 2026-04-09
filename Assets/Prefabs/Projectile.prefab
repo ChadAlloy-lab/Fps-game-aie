@@ -147,4 +147,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileLife: 3
-  damageAmount: 1
+  damageAmount: 2
