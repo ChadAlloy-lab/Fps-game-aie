@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public Button highScoreButton;
 
     public TargetHealth[] targets;
+    public CoinPickup[] coins;
     public GameObject player;
     public Camera worldCamera;
 
@@ -28,6 +29,12 @@ public class GameManager : MonoBehaviour
 
     public float targetActivateTimerAmount = 1;
     private float targetActivateTimer;
+
+    public float coinActivateTimerAmount = 1;
+    private float coinActivateTimer;
+
+  
+
 
     public float gameTimerAmount = 60;
     private float gameTimer;
@@ -61,6 +68,11 @@ public class GameManager : MonoBehaviour
         {
             targets[i].GameManager = this;
             targets[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < coins.Length; i++)
+        {
+            coins[i].GameManager = this;
+            coins[i].gameObject.SetActive(false);
         }
         startTimer = startTimerAmount;
         messageText.text = "Press Enter To Start";
@@ -100,6 +112,11 @@ public class GameManager : MonoBehaviour
     {
         int randomIndex = Random.Range(0, targets.Length);
         targets[randomIndex].gameObject.SetActive(true);
+    }
+    private void ActivateRandomCoin()
+    {
+        int randomIndex = Random.Range(0, coins.Length);
+        coins[randomIndex].gameObject.SetActive(true);
     }
 
     public void AddScore(int points)
@@ -170,6 +187,10 @@ public class GameManager : MonoBehaviour
             {
                 targets[i].gameObject.SetActive(false);
             }
+            for (int i = 0; i < coins.Length; i++)
+            {
+                coins[i].gameObject.SetActive(false);
+            }
             highScores.AddScore(score);
             highScores.SaveScoresToFile();
             newGameButton.gameObject.SetActive(true);
@@ -181,6 +202,13 @@ public class GameManager : MonoBehaviour
         {
             ActivateRandomTarget();
             targetActivateTimer = targetActivateTimerAmount;
+        }
+
+        coinActivateTimer -= Time.deltaTime;
+        if (coinActivateTimer <= 0)
+        {
+            ActivateRandomCoin();
+            coinActivateTimer = coinActivateTimerAmount;
         }
 
     }

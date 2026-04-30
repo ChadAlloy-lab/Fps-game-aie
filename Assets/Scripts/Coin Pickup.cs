@@ -23,18 +23,21 @@ public class CoinPickup : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    private void DisableCoin()
+    {
+        Debug.Log("Bling");
+        if (GameManager != null)
+        {
+            gameManager.AddScore(1);
+        }
+
+        gameObject.SetActive(false);
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("Bling");
-            GameManager.AddScore(1);
-            Destroy(gameObject);
-        }
-            
-
-            
+        DisableCoin();
         
     }
 
