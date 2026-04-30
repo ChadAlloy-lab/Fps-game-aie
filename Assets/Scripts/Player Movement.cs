@@ -24,6 +24,11 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 aimSize = new Vector2(38, 38);
     private Vector2 targetSize;
 
+    public float shootExpandAmount = 15f;
+    public float shrinkSpeed = 3f;
+    private float currentSpread = 0f;
+
+
     private float forwardInputValue;
     private float StrafeInputValue;
     private bool jumpInput;
@@ -65,7 +70,8 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         JumpAndGravity();
         CameraMovement();
-        crosshair.rectTransform.sizeDelta = targetSize;
+        
+        currentSpread = Mathf.Lerp(currentSpread, 0f, Time.deltaTime * shrinkSpeed);
         if (Input.GetMouseButton(1))
         {
             firstPersonCam.fieldOfView = Mathf.Lerp(firstPersonCam.fieldOfView, zoomFOV, zoomSpeed * Time.deltaTime);
@@ -77,6 +83,11 @@ public class PlayerMovement : MonoBehaviour
             targetSize = normalSize;
         }
 
+        
+       Vector2 spreadOffset = new Vector2(currentSpread, currentSpread);
+       crosshair.rectTransform.sizeDelta = Vector2.Lerp(crosshair.rectTransform.sizeDelta, targetSize + spreadOffset, Time.deltaTime * zoomSpeed);
+
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             currentSpeed = sprintSpeed;
@@ -84,6 +95,10 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             currentSpeed = movementSpeed;
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            currentSpread += shootExpandAmount;
         }
 
     }

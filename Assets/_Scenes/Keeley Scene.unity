@@ -1848,6 +1848,8 @@ MonoBehaviour:
   crosshair: {fileID: 1643895111}
   normalSize: {x: 60, y: 60}
   aimSize: {x: 38, y: 38}
+  shootExpandAmount: 15
+  shrinkSpeed: 3
   playerSpawnPoint: {fileID: 760424168}
 --- !u!143 &1078638767
 CharacterController:
