@@ -135,6 +135,8 @@ public class GameManager : MonoBehaviour
         startTimer -= Time.deltaTime;
         messageText.text = "Get Ready " + (int)(startTimer + 1);
 
+        
+
         if (startTimer < 0)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -149,8 +151,10 @@ public class GameManager : MonoBehaviour
             highScoreButton.gameObject.SetActive(false);
             newGameButton.gameObject.SetActive(false);
 
+
             player.SetActive(true);
             worldCamera.gameObject.SetActive(false);
+           
         }
     }
 
@@ -159,6 +163,19 @@ public class GameManager : MonoBehaviour
         gameTimer -= Time.deltaTime;
         int seconds = Mathf.RoundToInt(gameTimer);
         timerText.text = string.Format("Time: {0:D2}:{1:D2}", (seconds / 60), (seconds % 60));
+
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            Debug.Log(highScores);
+            OnHighScores();
+            highScorePanel.gameObject.SetActive(true);
+        }
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            highScorePanel.gameObject.SetActive(false);
+        }
+
         if (gameTimer <= 0)
         {
             Cursor.lockState= CursorLockMode.Confined;
