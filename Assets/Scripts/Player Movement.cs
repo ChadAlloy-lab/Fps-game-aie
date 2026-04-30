@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
     public float zoomFOV = 30f;
     public float zoomSpeed = 5f;
 
+    public Image crosshair;
+    public Vector2 normalSize = new Vector2(60, 60);
+    public Vector2 aimSize = new Vector2(38, 38);
+    private Vector2 targetSize;
 
     private float forwardInputValue;
     private float StrafeInputValue;
@@ -60,14 +65,16 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         JumpAndGravity();
         CameraMovement();
-
+        crosshair.rectTransform.sizeDelta = targetSize;
         if (Input.GetMouseButton(1))
         {
             firstPersonCam.fieldOfView = Mathf.Lerp(firstPersonCam.fieldOfView, zoomFOV, zoomSpeed * Time.deltaTime);
+            targetSize = aimSize;
         }
         else
         {
             firstPersonCam.fieldOfView = Mathf.Lerp(firstPersonCam.fieldOfView, normalFOV, zoomSpeed * Time.deltaTime);
+            targetSize = normalSize;
         }
 
         if (Input.GetKey(KeyCode.LeftShift))

@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI messageText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI scoreText;
-
+    public Image crosshair;
     public GameObject highScorePanel;
     public TextMeshProUGUI highScoresText;
 
@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
         highScorePanel.gameObject.SetActive(false);
         newGameButton.gameObject.SetActive(true);
         highScoreButton.gameObject.SetActive(true);
+        crosshair.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -122,6 +123,7 @@ public class GameManager : MonoBehaviour
         highScoreButton.gameObject.SetActive(false);
         highScorePanel.gameObject.SetActive(true);
 
+
         string text = "";
         for (int i = 0; i < highScores.scores.Length; i++)
         {
@@ -150,6 +152,7 @@ public class GameManager : MonoBehaviour
             highScorePanel.gameObject.SetActive(false);
             highScoreButton.gameObject.SetActive(false);
             newGameButton.gameObject.SetActive(false);
+            crosshair.gameObject.SetActive(true);
 
 
             player.SetActive(true);
@@ -170,10 +173,12 @@ public class GameManager : MonoBehaviour
             Debug.Log(highScores);
             OnHighScores();
             highScorePanel.gameObject.SetActive(true);
+            crosshair.gameObject.SetActive(false);
         }
         if (Input.GetKeyUp(KeyCode.Tab))
         {
             highScorePanel.gameObject.SetActive(false);
+            crosshair.gameObject.SetActive(true);
         }
 
         if (gameTimer <= 0)
@@ -192,6 +197,7 @@ public class GameManager : MonoBehaviour
             timerText.text = "";
             newGameButton.gameObject.SetActive(true);
             highScoreButton.gameObject.SetActive(true);
+            crosshair.gameObject.SetActive(false);
         }
 
         targetActivateTimer -= Time.deltaTime;
