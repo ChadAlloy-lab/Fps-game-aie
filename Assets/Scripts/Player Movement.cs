@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +15,18 @@ public class PlayerMovement : MonoBehaviour
     public float mouseSensitivity = 2.0f;
     public float pitchRange = 60.0f;
 
+    public float normalFOV = 60f;
+    public float zoomFOV = 30f;
+    public float zoomSpeed = 5f;
+
+    public Image crosshair;
+    public Vector2 normalSize = new Vector2(60, 60);
+    public Vector2 aimSize = new Vector2(38, 38);
+    private Vector2 targetSize;
+
+    public float shootExpandAmount = 15f;
+    public float shrinkSpeed = 3f;
+    private float currentSpread = 0f;
 
 
     private float forwardInputValue;
@@ -28,12 +41,25 @@ public class PlayerMovement : MonoBehaviour
     private Camera firstPersonCam;
     private CharacterController characterController;
 
+    public Transform playerSpawnPoint;
+
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
         firstPersonCam = GetComponentInChildren<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
 
+    }
+
+
+    void OnEnable()
+    {
+        characterController.enabled = false;
+        transform.position = playerSpawnPoint.position;
+        transform.rotation = playerSpawnPoint.rotation;
+
+        rotateCameraPitch = 0f;
+        characterController.enabled = true;
     }
 
     void Update()
@@ -44,6 +70,22 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         JumpAndGravity();
         CameraMovement();
+        
+        currentSpread = Mathf.Lerp(currentSpread, 0f, Time.deltaTime * shrinkSpeed);
+        if (Input.GetMouseButton(1))
+        {
+            firstPersonCam.fieldOfView = Mathf.Lerp(firstPersonCam.fieldOfView, zoomFOV, zoomSpeed * Time.deltaTime);
+            targetSize = aimSize;
+        }
+        else
+        {
+            firstPersonCam.fieldOfView = Mathf.Lerp(firstPersonCam.fieldOfView, normalFOV, zoomSpeed * Time.deltaTime);
+            targetSize = normalSize;
+        }
+
+        
+       Vector2 spreadOffset = new Vector2(currentSpread, currentSpread);
+       crosshair.rectTransform.sizeDelta = Vector2.Lerp(crosshair.rectTransform.sizeDelta, targetSize + spreadOffset, Time.deltaTime * zoomSpeed);
 
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -53,6 +95,10 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             currentSpeed = movementSpeed;
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            currentSpread += shootExpandAmount;
         }
 
     }
@@ -72,11 +118,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (characterController.isGrounded)
         {
-            verticalVelocity = -2f;
-        }
-        if (jumpInput)
-        {
-            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
+            if (verticalVelocity < 0.0f)
+            {
+                verticalVelocity = -2f;
+            }
+
+
+            if (jumpInput)
+            {
+                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
+            }
         }
         else
         {

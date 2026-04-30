@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI messageText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI scoreText;
-
+    public Image crosshair;
     public GameObject highScorePanel;
     public TextMeshProUGUI highScoresText;
 
@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public Button highScoreButton;
 
     public TargetHealth[] targets;
+    public CoinPickup[] coins;
     public GameObject player;
     public Camera worldCamera;
 
@@ -28,6 +29,12 @@ public class GameManager : MonoBehaviour
 
     public float targetActivateTimerAmount = 1;
     private float targetActivateTimer;
+
+    public float coinActivateTimerAmount = 1;
+    private float coinActivateTimer;
+
+  
+
 
     public float gameTimerAmount = 60;
     private float gameTimer;
@@ -62,6 +69,11 @@ public class GameManager : MonoBehaviour
             targets[i].GameManager = this;
             targets[i].gameObject.SetActive(false);
         }
+        for (int i = 0; i < coins.Length; i++)
+        {
+            coins[i].GameManager = this;
+            coins[i].gameObject.SetActive(false);
+        }
         startTimer = startTimerAmount;
         messageText.text = "Press Enter To Start";
         timerText.text = "";
@@ -70,6 +82,7 @@ public class GameManager : MonoBehaviour
         highScorePanel.gameObject.SetActive(false);
         newGameButton.gameObject.SetActive(true);
         highScoreButton.gameObject.SetActive(true);
+        crosshair.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -101,6 +114,11 @@ public class GameManager : MonoBehaviour
         int randomIndex = Random.Range(0, targets.Length);
         targets[randomIndex].gameObject.SetActive(true);
     }
+    private void ActivateRandomCoin()
+    {
+        int randomIndex = Random.Range(0, coins.Length);
+        coins[randomIndex].gameObject.SetActive(true);
+    }
 
     public void AddScore(int points)
     {
@@ -122,6 +140,7 @@ public class GameManager : MonoBehaviour
         highScoreButton.gameObject.SetActive(false);
         highScorePanel.gameObject.SetActive(true);
 
+
         string text = "";
         for (int i = 0; i < highScores.scores.Length; i++)
         {
@@ -134,6 +153,8 @@ public class GameManager : MonoBehaviour
     {
         startTimer -= Time.deltaTime;
         messageText.text = "Get Ready " + (int)(startTimer + 1);
+
+        
 
         if (startTimer < 0)
         {
@@ -148,9 +169,12 @@ public class GameManager : MonoBehaviour
             highScorePanel.gameObject.SetActive(false);
             highScoreButton.gameObject.SetActive(false);
             newGameButton.gameObject.SetActive(false);
+            crosshair.gameObject.SetActive(true);
+
 
             player.SetActive(true);
             worldCamera.gameObject.SetActive(false);
+           
         }
     }
 
@@ -159,10 +183,25 @@ public class GameManager : MonoBehaviour
         gameTimer -= Time.deltaTime;
         int seconds = Mathf.RoundToInt(gameTimer);
         timerText.text = string.Format("Time: {0:D2}:{1:D2}", (seconds / 60), (seconds % 60));
+
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            Debug.Log(highScores);
+            OnHighScores();
+            highScorePanel.gameObject.SetActive(true);
+            crosshair.gameObject.SetActive(false);
+        }
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            highScorePanel.gameObject.SetActive(false);
+            crosshair.gameObject.SetActive(true);
+        }
+
         if (gameTimer <= 0)
         {
             Cursor.lockState= CursorLockMode.Confined;
-            Debug.Log("Game Over. Score: " + score);
+            messageText.text = ("Game Over. Score: " + score);
             gameState = GameState.GameOver;
             player.SetActive(false);
             worldCamera.gameObject.SetActive(true);
@@ -170,10 +209,16 @@ public class GameManager : MonoBehaviour
             {
                 targets[i].gameObject.SetActive(false);
             }
+            for (int i = 0; i < coins.Length; i++)
+            {
+                coins[i].gameObject.SetActive(false);
+            }
             highScores.AddScore(score);
             highScores.SaveScoresToFile();
+            timerText.text = "";
             newGameButton.gameObject.SetActive(true);
             highScoreButton.gameObject.SetActive(true);
+            crosshair.gameObject.SetActive(false);
         }
 
         targetActivateTimer -= Time.deltaTime;
@@ -181,6 +226,13 @@ public class GameManager : MonoBehaviour
         {
             ActivateRandomTarget();
             targetActivateTimer = targetActivateTimerAmount;
+        }
+
+        coinActivateTimer -= Time.deltaTime;
+        if (coinActivateTimer <= 0)
+        {
+            ActivateRandomCoin();
+            coinActivateTimer = coinActivateTimerAmount;
         }
 
     }
