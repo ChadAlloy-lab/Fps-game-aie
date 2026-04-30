@@ -931,7 +931,7 @@ Transform:
   m_GameObject: {fileID: 344455470}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.22, y: -0.36, z: 0.407}
+  m_LocalPosition: {x: 0.257, y: -0.36, z: 0.587}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1908,7 +1908,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8702750058007035447, guid: 238b5f2a8ce5de845a590cc693d2bea1, type: 3}
   spawnTransform: {fileID: 344455471}
-  force: 5000
+  force: 10000
 --- !u!4 &1162069806 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8411841998865256132, guid: c8c4497909a40e5478b59769c9612786, type: 3}
