@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 8d7119bb3a42f6e4990ba4f61cfd6643, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1618,6 +1618,15 @@ MonoBehaviour:
   fallGravityMultiplier: 2
   mouseSensitivity: 2
   pitchRange: 60
+  normalFOV: 60
+  zoomFOV: 30
+  zoomSpeed: 5
+  crosshair: {fileID: 0}
+  normalSize: {x: 60, y: 60}
+  aimSize: {x: 38, y: 38}
+  shootExpandAmount: 15
+  shrinkSpeed: 3
+  playerSpawnPoint: {fileID: 0}
 --- !u!143 &1078638767
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2459,6 +2468,7 @@ MonoBehaviour:
   messageText: {fileID: 1912173440}
   timerText: {fileID: 728980963}
   scoreText: {fileID: 1912173440}
+  crosshair: {fileID: 0}
   highScorePanel: {fileID: 2062522696}
   highScoresText: {fileID: 199338418}
   newGameButton: {fileID: 1581949606}
@@ -2467,10 +2477,12 @@ MonoBehaviour:
   - {fileID: 1263567381}
   - {fileID: 1242606066}
   - {fileID: 2030474543}
+  coins: []
   player: {fileID: 1078638765}
   worldCamera: {fileID: 1017134290}
   startTimerAmount: 3
   targetActivateTimerAmount: 1
+  coinActivateTimerAmount: 1
   gameTimerAmount: 60
   gameState: 1
 --- !u!4 &1904812799
